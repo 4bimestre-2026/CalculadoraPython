@@ -2,7 +2,7 @@ import tkinter as tk
 
 janela = tk.Tk()
 janela.title("Calculadora")
-janela.geometry("600x800")
+janela.geometry("230x280")
 
 def digitar(numero):
     visor.insert(tk.END, numero)
@@ -11,25 +11,28 @@ def limpar():
     visor.delete(0, tk.END)
 
 def apagar():
-    conteudo= visor.get()
+    conteudo = visor.get()
     visor.delete(0, tk.END)
     visor.insert(0, conteudo[:-1])
 
 def somar():
-    soma
+    soma = float(visor.get())
+    resultado = resultado + soma
+    visor.delete(0, tk.END)
 
 
 def digitar_menos():
     visor.insert(tk.END,"9")
 
-def digitar_multiplicação():
+def digitar_multiplicacao():
     visor.insert(tk.END,"9")
 
 
-
-visor = tk.Entry(janela, width=24, justify="right", font=("Arial", 12))
+# Visor
+visor = tk.Entry(janela, width=24, justify="right", font=("Arial", 13))
 visor.grid(row=0, column=0, columnspan=4, padx=5, pady=5)
 
+# Primeira linha de botoes
 botao_C = tk.Button(
     janela,
     text="C",
@@ -52,6 +55,7 @@ botao_divisao.grid(row=1, column=2, padx=2, pady=2)
 botao_mult = tk.Button(janela, text="x", width=6, height=2)
 botao_mult.grid(row=1, column=3, padx=2, pady=2)
 
+# Segunda linha de botaoes
 botao_7 = tk.Button(
     janela, 
     text="7", 
@@ -79,6 +83,7 @@ botao_9.grid(row=2, column=2, padx=2, pady=2)
 botao_menos = tk.Button(janela, text="-", width=6, height=2)
 botao_menos.grid(row=2, column=3, padx=2, pady=2)
 
+# Terceira linha de botoes
 botao_4 = tk.Button(
     janela, 
     text="4", 
@@ -103,9 +108,15 @@ botao_6 = tk.Button(
 )
 botao_6.grid(row=3, column=2, padx=2, pady=2)
 
-botao_soma = tk.Button(janela, text="+", width=6, height=2)
+botao_soma = tk.Button(
+    janela, 
+    text="+", 
+    width=6, height=2,
+    command=somar
+    )
 botao_soma.grid(row=3, column=3, padx=2, pady=2)
 
+# Quarta linha de botoes
 botao_1 = tk.Button(
     janela, 
     text="1", 
@@ -130,18 +141,27 @@ botao_3 = tk.Button(
 )
 botao_3.grid(row=4, column=2, padx=2, pady=2)
 
-botao_igual = tk.Button(janela, text="=", width=6, height=5)
+botao_igual = tk.Button(
+    janela, 
+    text="=", 
+    width=6, height=5
+)
 botao_igual.grid(row=4, column=3, rowspan=2, padx=2, pady=2)
 
+# Quinta linha de botoes
 botao_0 = tk.Button(
     janela, 
     text="0", 
     width=14, height=2,
     command=lambda: digitar("0")
-    )
+)
 botao_0.grid(row=5, column=0, columnspan=2, padx=2, pady=2)
 
-botao_ponto = tk.Button(janela, text=".", width=6, height=2)
+botao_ponto = tk.Button(janela, 
+    text=".", 
+    width=6, height=2,
+    command=lambda: digitar(".")
+)
 botao_ponto.grid(row=5, column=2, padx=2, pady=2)
 
 
