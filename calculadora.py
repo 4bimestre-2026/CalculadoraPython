@@ -25,13 +25,29 @@ def apagar():
 
 def calcular(operador):
     global operacao, numero
-    numero = visor.get()
+    numero = float(visor.get())
     operacao = operador
     visor.delete(0, tk.END)
 
 def igual():
+    global resultado, numero, operacao
+    numero2 = float(visor.get())
+    
+    if operacao == "+":
+        resultado = numero + numero2
+    elif operacao == "-":
+        resultado = numero - numero2
+    elif operacao == "x":
+        resultado = numero * numero2
+    elif operacao == "/":
+        if numero2 == 0:
+            visor.delete(0, tk.END)
+            visor.insert(0, "Erro")
+            return
+        resultado = numero / numero2
+        
     visor.delete(0, tk.END)
-    visor.insert(str(resultado))
+    visor.insert(0, str(resultado))
 
 # Visor
 visor = tk.Entry(janela, width=24, justify="right", font=("Arial", 13))
@@ -164,7 +180,8 @@ botao_3.grid(row=4, column=2, padx=2, pady=2)
 botao_igual = tk.Button(
     janela, 
     text="=", 
-    width=6, height=5
+    width=6, height=5,
+    command=igual
 )
 botao_igual.grid(row=4, column=3, rowspan=2, padx=2, pady=2)
 
