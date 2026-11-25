@@ -1,5 +1,9 @@
 import tkinter as tk
 
+resultado = 0.0
+numero = 0.0
+operacao = ""
+
 janela = tk.Tk()
 janela.title("Calculadora")
 janela.geometry("230x280")
@@ -8,25 +12,26 @@ def digitar(numero):
     visor.insert(tk.END, numero)
     
 def limpar():
+    global resultado, numero, operacao
     visor.delete(0, tk.END)
+    resultado = 0.0
+    numero = 0.0
+    operacao = ""
 
 def apagar():
     conteudo = visor.get()
     visor.delete(0, tk.END)
     visor.insert(0, conteudo[:-1])
 
-def somar():
-    soma = float(visor.get())
-    resultado = resultado + soma
+def calcular(operador):
+    global operacao, numero
+    numero = visor.get()
+    operacao = operador
     visor.delete(0, tk.END)
 
-
-def digitar_menos():
-    visor.insert(tk.END,"9")
-
-def digitar_multiplicacao():
-    visor.insert(tk.END,"9")
-
+def igual():
+    visor.delete(0, tk.END)
+    visor.insert(str(resultado))
 
 # Visor
 visor = tk.Entry(janela, width=24, justify="right", font=("Arial", 13))
@@ -49,10 +54,20 @@ botao_apagar = tk.Button(
 )
 botao_apagar.grid(row=1, column=1, padx=2, pady=2)
 
-botao_divisao = tk.Button(janela, text="÷", width=6, height=2)
+botao_divisao = tk.Button(
+    janela, 
+    text="÷", 
+    width=6, height=2,
+    command=lambda: calcular("/")
+)
 botao_divisao.grid(row=1, column=2, padx=2, pady=2)
 
-botao_mult = tk.Button(janela, text="x", width=6, height=2)
+botao_mult = tk.Button(
+    janela, 
+    text="x", 
+    width=6, height=2,
+    command=lambda: calcular("x")
+)
 botao_mult.grid(row=1, column=3, padx=2, pady=2)
 
 # Segunda linha de botaoes
@@ -80,7 +95,12 @@ botao_9 = tk.Button(
 )
 botao_9.grid(row=2, column=2, padx=2, pady=2)
 
-botao_menos = tk.Button(janela, text="-", width=6, height=2)
+botao_menos = tk.Button(
+    janela, 
+    text="-", 
+    width=6, height=2,
+    command=lambda: calcular("-")
+)
 botao_menos.grid(row=2, column=3, padx=2, pady=2)
 
 # Terceira linha de botoes
@@ -112,7 +132,7 @@ botao_soma = tk.Button(
     janela, 
     text="+", 
     width=6, height=2,
-    command=somar
+    command=lambda: calcular("+")
     )
 botao_soma.grid(row=3, column=3, padx=2, pady=2)
 
